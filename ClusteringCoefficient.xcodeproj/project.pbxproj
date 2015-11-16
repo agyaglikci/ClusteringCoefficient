@@ -23,8 +23,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		871E53471BA08EA00098A0AD /* enron-0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "enron-0.txt"; sourceTree = "<group>"; };
 		8745D0E91B9F8C9100B2228C /* ClusteringCoefficient */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ClusteringCoefficient; sourceTree = BUILT_PRODUCTS_DIR; };
 		8745D0EC1B9F8C9100B2228C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		8745D0F41B9F8CAB00B2228C /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		8745D0F51B9F8CAB00B2228C /* enron-1-cn.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "enron-1-cn.txt"; sourceTree = "<group>"; };
+		8745D0F61B9F8CAB00B2228C /* enron-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "enron-1.txt"; sourceTree = "<group>"; };
+		8745D0F71B9F8CAB00B2228C /* enron-2-cn.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "enron-2-cn.txt"; sourceTree = "<group>"; };
+		8745D0F81B9F8CAB00B2228C /* enron-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "enron-2.txt"; sourceTree = "<group>"; };
+		8745D0F91B9F8CAB00B2228C /* enron-3-cn.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "enron-3-cn.txt"; sourceTree = "<group>"; };
+		8745D0FA1B9F8CAB00B2228C /* enron-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "enron-3.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +66,14 @@
 			isa = PBXGroup;
 			children = (
 				8745D0EC1B9F8C9100B2228C /* main.cpp */,
+				8745D0F41B9F8CAB00B2228C /* main.h */,
+				8745D0F51B9F8CAB00B2228C /* enron-1-cn.txt */,
+				8745D0F61B9F8CAB00B2228C /* enron-1.txt */,
+				871E53471BA08EA00098A0AD /* enron-0.txt */,
+				8745D0F71B9F8CAB00B2228C /* enron-2-cn.txt */,
+				8745D0F81B9F8CAB00B2228C /* enron-2.txt */,
+				8745D0F91B9F8CAB00B2228C /* enron-3-cn.txt */,
+				8745D0FA1B9F8CAB00B2228C /* enron-3.txt */,
 			);
 			path = ClusteringCoefficient;
 			sourceTree = "<group>";
@@ -88,7 +104,7 @@
 		8745D0E11B9F8C9100B2228C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Abdullah Giray YAGLIKCI";
 				TargetAttributes = {
 					8745D0E81B9F8C9100B2228C = {
@@ -129,8 +145,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -145,7 +161,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -171,8 +187,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -188,7 +204,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -205,6 +221,8 @@
 		8745D0F11B9F8C9100B2228C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				OTHER_CFLAGS = "-O3";
+				"OTHER_CFLAGS[arch=*]" = "-I/usr/local/Cellar/boost/1.58.0/include";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -212,6 +230,8 @@
 		8745D0F21B9F8C9100B2228C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				OTHER_CFLAGS = "-O3";
+				"OTHER_CFLAGS[arch=*]" = "-I/usr/local/Cellar/boost/1.58.0/include";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -235,6 +255,7 @@
 				8745D0F21B9F8C9100B2228C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
