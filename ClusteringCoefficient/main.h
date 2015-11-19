@@ -28,11 +28,9 @@
 #define DIRECTORY "/Users/agyaglikci/Workspace/ClusteringCoefficient/ClusteringCoefficient/"
 #define FILE_PREFIX "enron-"
 #define FILE_EXTENSION ".txt"
-#define NUM_OF_VERTICES 22430
-#define TIMESTAMP 1
-#define NUM_OF_PTHREADS 4
-#define VERTEX_CHUNK_SIZE 5608//1402 // ceil(NUM_OF_VERTICES/NUM_OF_PTHREADS)
-#define MAX_NEIGHBORS 608
+#define TIMESTAMP 0
+#define NUM_OF_PTHREADS 2
+#define CN_THRESHOLD 0
 //22430 vertices are there in node pairs file.
 //608 edges are there in node pairs file.
 struct vertex;
@@ -73,7 +71,7 @@ public:
     int index = 0;
     int related_node_top_index = 0;
     double clustering_coefficient;
-    hint relatedNodes [MAX_NEIGHBORS];
+    std::vector< std::pair<int,vertex_desc> > relatedNodes;
 };
 
 struct edge {
@@ -93,17 +91,19 @@ void hint_access(vertex_desc , int);
 
 //============================================================================
 // THREAD ARGUMENTS
+
 class cn_thread_args {
 public:
-    edge_iter ei;
-    int chunk_size;
     int thread_id;
+    std::vector<int> * testVector ;
+    std::vector<std::pair<vertex_desc, vertex_desc> > * vertex_pairs_ptr ;
 };
+
+
 
 class cc_thread_args {
 public:
-    vertex_desc vertices [VERTEX_CHUNK_SIZE];
-    int vector_size;
+    std::vector<vertex_desc> * vertices_pointer;
     int thread_id;
 };
 

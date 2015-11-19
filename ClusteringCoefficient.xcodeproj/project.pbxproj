@@ -23,16 +23,52 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		871E53471BA08EA00098A0AD /* enron-0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "enron-0.txt"; sourceTree = "<group>"; };
+		872554D31BFE669600A8F169 /* enron-1-1000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-1-1000.txt"; sourceTree = "<group>"; };
+		872554D41BFE669600A8F169 /* enron-1-2000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-1-2000.txt"; sourceTree = "<group>"; };
+		872554D51BFE669600A8F169 /* enron-1-4000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-1-4000.txt"; sourceTree = "<group>"; };
+		872554D61BFE669600A8F169 /* enron-1-8000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-1-8000.txt"; sourceTree = "<group>"; };
+		872554D71BFE669600A8F169 /* enron-1-16000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-1-16000.txt"; sourceTree = "<group>"; };
+		872554D81BFE669600A8F169 /* enron-1-32000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-1-32000.txt"; sourceTree = "<group>"; };
+		872554D91BFE669600A8F169 /* enron-1-64000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-1-64000.txt"; sourceTree = "<group>"; };
+		872554DA1BFE669600A8F169 /* enron-1-cn-1000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-1-cn-1000.txt"; sourceTree = "<group>"; };
+		872554DB1BFE669600A8F169 /* enron-1-cn-2000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-1-cn-2000.txt"; sourceTree = "<group>"; };
+		872554DC1BFE669600A8F169 /* enron-1-cn-4000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-1-cn-4000.txt"; sourceTree = "<group>"; };
+		872554DD1BFE669600A8F169 /* enron-1-cn-8000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-1-cn-8000.txt"; sourceTree = "<group>"; };
+		872554DE1BFE669600A8F169 /* enron-1-cn-16000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-1-cn-16000.txt"; sourceTree = "<group>"; };
+		872554DF1BFE669600A8F169 /* enron-1-cn-32000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-1-cn-32000.txt"; sourceTree = "<group>"; };
+		872554E01BFE669600A8F169 /* enron-1-cn-64000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-1-cn-64000.txt"; sourceTree = "<group>"; };
+		872554E11BFE669600A8F169 /* enron-2-1000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-2-1000.txt"; sourceTree = "<group>"; };
+		872554E21BFE669600A8F169 /* enron-2-2000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-2-2000.txt"; sourceTree = "<group>"; };
+		872554E31BFE669600A8F169 /* enron-2-4000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-2-4000.txt"; sourceTree = "<group>"; };
+		872554E41BFE669600A8F169 /* enron-2-8000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-2-8000.txt"; sourceTree = "<group>"; };
+		872554E51BFE669600A8F169 /* enron-2-16000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-2-16000.txt"; sourceTree = "<group>"; };
+		872554E61BFE669600A8F169 /* enron-2-32000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-2-32000.txt"; sourceTree = "<group>"; };
+		872554E71BFE669600A8F169 /* enron-2-64000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-2-64000.txt"; sourceTree = "<group>"; };
+		872554E81BFE669600A8F169 /* enron-2-cn-1000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-2-cn-1000.txt"; sourceTree = "<group>"; };
+		872554E91BFE669600A8F169 /* enron-2-cn-2000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-2-cn-2000.txt"; sourceTree = "<group>"; };
+		872554EA1BFE669600A8F169 /* enron-2-cn-4000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-2-cn-4000.txt"; sourceTree = "<group>"; };
+		872554EB1BFE669600A8F169 /* enron-2-cn-8000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-2-cn-8000.txt"; sourceTree = "<group>"; };
+		872554EC1BFE669600A8F169 /* enron-2-cn-16000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-2-cn-16000.txt"; sourceTree = "<group>"; };
+		872554ED1BFE669600A8F169 /* enron-2-cn-32000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-2-cn-32000.txt"; sourceTree = "<group>"; };
+		872554EE1BFE669600A8F169 /* enron-2-cn-64000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-2-cn-64000.txt"; sourceTree = "<group>"; };
+		872554EF1BFE669600A8F169 /* enron-3-1000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-3-1000.txt"; sourceTree = "<group>"; };
+		872554F01BFE669600A8F169 /* enron-3-2000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-3-2000.txt"; sourceTree = "<group>"; };
+		872554F11BFE669600A8F169 /* enron-3-4000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-3-4000.txt"; sourceTree = "<group>"; };
+		872554F21BFE669600A8F169 /* enron-3-8000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-3-8000.txt"; sourceTree = "<group>"; };
+		872554F31BFE669600A8F169 /* enron-3-16000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-3-16000.txt"; sourceTree = "<group>"; };
+		872554F41BFE669600A8F169 /* enron-3-32000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-3-32000.txt"; sourceTree = "<group>"; };
+		872554F51BFE669600A8F169 /* enron-3-64000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-3-64000.txt"; sourceTree = "<group>"; };
+		872554F61BFE669600A8F169 /* enron-3-cn-1000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-3-cn-1000.txt"; sourceTree = "<group>"; };
+		872554F71BFE669600A8F169 /* enron-3-cn-2000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-3-cn-2000.txt"; sourceTree = "<group>"; };
+		872554F81BFE669600A8F169 /* enron-3-cn-4000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-3-cn-4000.txt"; sourceTree = "<group>"; };
+		872554F91BFE669600A8F169 /* enron-3-cn-8000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-3-cn-8000.txt"; sourceTree = "<group>"; };
+		872554FA1BFE669600A8F169 /* enron-3-cn-16000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-3-cn-16000.txt"; sourceTree = "<group>"; };
+		872554FB1BFE669600A8F169 /* enron-3-cn-32000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-3-cn-32000.txt"; sourceTree = "<group>"; };
+		872554FC1BFE669600A8F169 /* enron-3-cn-64000.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "enron-3-cn-64000.txt"; sourceTree = "<group>"; };
+		872554FD1BFE6DB100A8F169 /* enron-0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "enron-0.txt"; sourceTree = "<group>"; };
 		8745D0E91B9F8C9100B2228C /* ClusteringCoefficient */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ClusteringCoefficient; sourceTree = BUILT_PRODUCTS_DIR; };
 		8745D0EC1B9F8C9100B2228C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8745D0F41B9F8CAB00B2228C /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
-		8745D0F51B9F8CAB00B2228C /* enron-1-cn.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "enron-1-cn.txt"; sourceTree = "<group>"; };
-		8745D0F61B9F8CAB00B2228C /* enron-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "enron-1.txt"; sourceTree = "<group>"; };
-		8745D0F71B9F8CAB00B2228C /* enron-2-cn.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "enron-2-cn.txt"; sourceTree = "<group>"; };
-		8745D0F81B9F8CAB00B2228C /* enron-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "enron-2.txt"; sourceTree = "<group>"; };
-		8745D0F91B9F8CAB00B2228C /* enron-3-cn.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "enron-3-cn.txt"; sourceTree = "<group>"; };
-		8745D0FA1B9F8CAB00B2228C /* enron-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "enron-3.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,13 +103,49 @@
 			children = (
 				8745D0EC1B9F8C9100B2228C /* main.cpp */,
 				8745D0F41B9F8CAB00B2228C /* main.h */,
-				8745D0F51B9F8CAB00B2228C /* enron-1-cn.txt */,
-				8745D0F61B9F8CAB00B2228C /* enron-1.txt */,
-				871E53471BA08EA00098A0AD /* enron-0.txt */,
-				8745D0F71B9F8CAB00B2228C /* enron-2-cn.txt */,
-				8745D0F81B9F8CAB00B2228C /* enron-2.txt */,
-				8745D0F91B9F8CAB00B2228C /* enron-3-cn.txt */,
-				8745D0FA1B9F8CAB00B2228C /* enron-3.txt */,
+				872554FD1BFE6DB100A8F169 /* enron-0.txt */,
+				872554D31BFE669600A8F169 /* enron-1-1000.txt */,
+				872554D41BFE669600A8F169 /* enron-1-2000.txt */,
+				872554D51BFE669600A8F169 /* enron-1-4000.txt */,
+				872554D61BFE669600A8F169 /* enron-1-8000.txt */,
+				872554D71BFE669600A8F169 /* enron-1-16000.txt */,
+				872554D81BFE669600A8F169 /* enron-1-32000.txt */,
+				872554D91BFE669600A8F169 /* enron-1-64000.txt */,
+				872554DA1BFE669600A8F169 /* enron-1-cn-1000.txt */,
+				872554DB1BFE669600A8F169 /* enron-1-cn-2000.txt */,
+				872554DC1BFE669600A8F169 /* enron-1-cn-4000.txt */,
+				872554DD1BFE669600A8F169 /* enron-1-cn-8000.txt */,
+				872554DE1BFE669600A8F169 /* enron-1-cn-16000.txt */,
+				872554DF1BFE669600A8F169 /* enron-1-cn-32000.txt */,
+				872554E01BFE669600A8F169 /* enron-1-cn-64000.txt */,
+				872554E11BFE669600A8F169 /* enron-2-1000.txt */,
+				872554E21BFE669600A8F169 /* enron-2-2000.txt */,
+				872554E31BFE669600A8F169 /* enron-2-4000.txt */,
+				872554E41BFE669600A8F169 /* enron-2-8000.txt */,
+				872554E51BFE669600A8F169 /* enron-2-16000.txt */,
+				872554E61BFE669600A8F169 /* enron-2-32000.txt */,
+				872554E71BFE669600A8F169 /* enron-2-64000.txt */,
+				872554E81BFE669600A8F169 /* enron-2-cn-1000.txt */,
+				872554E91BFE669600A8F169 /* enron-2-cn-2000.txt */,
+				872554EA1BFE669600A8F169 /* enron-2-cn-4000.txt */,
+				872554EB1BFE669600A8F169 /* enron-2-cn-8000.txt */,
+				872554EC1BFE669600A8F169 /* enron-2-cn-16000.txt */,
+				872554ED1BFE669600A8F169 /* enron-2-cn-32000.txt */,
+				872554EE1BFE669600A8F169 /* enron-2-cn-64000.txt */,
+				872554EF1BFE669600A8F169 /* enron-3-1000.txt */,
+				872554F01BFE669600A8F169 /* enron-3-2000.txt */,
+				872554F11BFE669600A8F169 /* enron-3-4000.txt */,
+				872554F21BFE669600A8F169 /* enron-3-8000.txt */,
+				872554F31BFE669600A8F169 /* enron-3-16000.txt */,
+				872554F41BFE669600A8F169 /* enron-3-32000.txt */,
+				872554F51BFE669600A8F169 /* enron-3-64000.txt */,
+				872554F61BFE669600A8F169 /* enron-3-cn-1000.txt */,
+				872554F71BFE669600A8F169 /* enron-3-cn-2000.txt */,
+				872554F81BFE669600A8F169 /* enron-3-cn-4000.txt */,
+				872554F91BFE669600A8F169 /* enron-3-cn-8000.txt */,
+				872554FA1BFE669600A8F169 /* enron-3-cn-16000.txt */,
+				872554FB1BFE669600A8F169 /* enron-3-cn-32000.txt */,
+				872554FC1BFE669600A8F169 /* enron-3-cn-64000.txt */,
 			);
 			path = ClusteringCoefficient;
 			sourceTree = "<group>";
