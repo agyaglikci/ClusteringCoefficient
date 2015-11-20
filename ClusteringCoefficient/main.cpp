@@ -28,9 +28,9 @@ Graph my_graph(edgefile_graph_size(TIMESTAMP));
 int main(int argc, char* argv[]) {
     int ts = TIMESTAMP;
     create_graph(TIMESTAMP);
-    common_neighbors_master_thread(graph_size.second);
+    //common_neighbors_master_thread(graph_size.second);
     clustering_coefficient_master_thread(graph_size.first - numof_noedge_vertices);
-    /*
+    
     ts++;
     create_graph(ts);
     clustering_coefficient_master_thread(graph_size.first - numof_noedge_vertices);
@@ -38,6 +38,7 @@ int main(int argc, char* argv[]) {
     ts++;
     create_graph(ts);
     clustering_coefficient_master_thread(graph_size.first - numof_noedge_vertices);
+    
     // */
     return 0;
 }
@@ -115,7 +116,7 @@ void common_neighbors_master_thread(int number_of_edges){
     }
     
     unsigned long chunk_size = all_vertex_pairs.size() / NUM_OF_PTHREADS + 1;
-    cout << "Average chunk size for common neighbors is " << chunk_size << endl;
+    //cout << "Average chunk size for common neighbors is " << chunk_size << endl;
     for ( int i = 0 ;  i < NUM_OF_PTHREADS; i++){
         for (int j = 0 ; j < chunk_size && !all_vertex_pairs.empty(); j++) {
             vertex_pairs[i].push_back(all_vertex_pairs.back());
@@ -131,7 +132,7 @@ void common_neighbors_master_thread(int number_of_edges){
     }
     free(th_args);
     
-    cout << "Common Neighbors calculation finished for each vertex pair" << endl;
+    //cout << "Common Neighbors calculation finished for each vertex pair" << endl;
     /* Log results
     pair<vertex_iter, vertex_iter> vi = vertices(my_graph);
     for (vertex_iter i = vi.first; i != vi.second; i++) {
@@ -189,10 +190,10 @@ void clustering_coefficient_master_thread(int number_of_vertices){
     for ( int i = 0 ;  i < NUM_OF_PTHREADS; i++){
         int chunk_size = ceil(((double) number_of_vertices ) / (NUM_OF_PTHREADS-i));
         number_of_vertices -= chunk_size;
-        cout << "Thread " << i+1 << " is being started by " << chunk_size << " vertices." << endl;
-        while (chunk_size > 0) {
-            verticesArr[i].push_back(*vi);
+        //cout << "Thread " << i+1 << " is being started by " << chunk_size << " vertices." << endl;
+        while (chunk_size > 0 && vi < vp.second) {
             if (!my_graph[*vi].noedge){
+                verticesArr[i].push_back(*vi);
                 my_graph[*vi].assigned = true;
                 chunk_size --;
                 
@@ -208,7 +209,7 @@ void clustering_coefficient_master_thread(int number_of_vertices){
                 adjac_iter ai, ai_end;
                 tie(ai,ai_end) = adjacent_vertices(*vi,my_graph);
                 while (chunk_size > 0 && ai != ai_end) {
-                    if (!my_graph[*ai].assigned){
+                    if (!my_graph[*ai].assigned && !my_graph[*ai].noedge){
                         verticesArr[i].push_back(*ai);
                         my_graph[*ai].assigned = true;
                         chunk_size --;
@@ -217,7 +218,7 @@ void clustering_coefficient_master_thread(int number_of_vertices){
                 }
             }
             
-            while (my_graph[*vi].assigned && vi <= vp.second) {
+            while ((my_graph[*vi].assigned || my_graph[*vi].noedge) && vi < vp.second) {
                 vi++;
             }
         }
@@ -233,7 +234,7 @@ void clustering_coefficient_master_thread(int number_of_vertices){
     }
     free(th_args);
     
-    /* Log results
+    // Log results
     pair<vertex_iter, vertex_iter> viter = vertices(my_graph);
     for (vertex_iter i = viter.first; i != viter.second; i++) {
         if (my_graph[*i].clustering_coefficient > 0.1)

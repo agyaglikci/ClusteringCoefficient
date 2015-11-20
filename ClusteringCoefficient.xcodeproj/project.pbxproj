@@ -69,10 +69,18 @@
 		8745D0E91B9F8C9100B2228C /* ClusteringCoefficient */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ClusteringCoefficient; sourceTree = BUILT_PRODUCTS_DIR; };
 		8745D0EC1B9F8C9100B2228C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8745D0F41B9F8CAB00B2228C /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		87CEC50A1BFEE85800C5A33E /* ClusteringCoefficientTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClusteringCoefficientTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		8745D0E61B9F8C9100B2228C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87CEC5071BFEE85800C5A33E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -94,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				8745D0E91B9F8C9100B2228C /* ClusteringCoefficient */,
+				87CEC50A1BFEE85800C5A33E /* ClusteringCoefficientTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -170,6 +179,23 @@
 			productReference = 8745D0E91B9F8C9100B2228C /* ClusteringCoefficient */;
 			productType = "com.apple.product-type.tool";
 		};
+		87CEC5091BFEE85800C5A33E /* ClusteringCoefficientTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 87CEC5111BFEE85800C5A33E /* Build configuration list for PBXNativeTarget "ClusteringCoefficientTest" */;
+			buildPhases = (
+				87CEC5061BFEE85800C5A33E /* Sources */,
+				87CEC5071BFEE85800C5A33E /* Frameworks */,
+				87CEC5081BFEE85800C5A33E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ClusteringCoefficientTest;
+			productName = ClusteringCoefficientTest;
+			productReference = 87CEC50A1BFEE85800C5A33E /* ClusteringCoefficientTest.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -181,6 +207,9 @@
 				TargetAttributes = {
 					8745D0E81B9F8C9100B2228C = {
 						CreatedOnToolsVersion = 6.4;
+					};
+					87CEC5091BFEE85800C5A33E = {
+						CreatedOnToolsVersion = 7.0.1;
 					};
 				};
 			};
@@ -197,9 +226,20 @@
 			projectRoot = "";
 			targets = (
 				8745D0E81B9F8C9100B2228C /* ClusteringCoefficient */,
+				87CEC5091BFEE85800C5A33E /* ClusteringCoefficientTest */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		87CEC5081BFEE85800C5A33E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8745D0E51B9F8C9100B2228C /* Sources */ = {
@@ -207,6 +247,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8745D0ED1B9F8C9100B2228C /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87CEC5061BFEE85800C5A33E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +355,38 @@
 			};
 			name = Release;
 		};
+		87CEC50F1BFEE85800C5A33E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				INFOPLIST_FILE = ClusteringCoefficientTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.nd.ClusteringCoefficientTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		87CEC5101BFEE85800C5A33E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				INFOPLIST_FILE = ClusteringCoefficientTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.nd.ClusteringCoefficientTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -328,6 +407,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		87CEC5111BFEE85800C5A33E /* Build configuration list for PBXNativeTarget "ClusteringCoefficientTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87CEC50F1BFEE85800C5A33E /* Debug */,
+				87CEC5101BFEE85800C5A33E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

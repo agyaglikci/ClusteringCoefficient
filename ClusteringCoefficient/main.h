@@ -27,7 +27,7 @@
 
 #define DIRECTORY "/Users/agyaglikci/Workspace/ClusteringCoefficient/ClusteringCoefficient/"
 #define FILE_PREFIX "enron-"
-#define FILE_EXTENSION "-1000.txt"
+#define FILE_EXTENSION "-64000.txt"
 #define TIMESTAMP 1
 #define NUM_OF_PTHREADS 4
 #define CN_THRESHOLD 1
