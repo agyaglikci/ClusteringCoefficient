@@ -27,18 +27,18 @@
 
 #define DIRECTORY "/Users/agyaglikci/Workspace/ClusteringCoefficient/ClusteringCoefficient/"
 #define FILE_PREFIX "enron-"
-#define FILE_EXTENSION ".txt"
-#define TIMESTAMP 0
-#define NUM_OF_PTHREADS 2
-#define CN_THRESHOLD 0
-//22430 vertices are there in node pairs file.
-//608 edges are there in node pairs file.
+#define FILE_EXTENSION "-1000.txt"
+#define TIMESTAMP 1
+#define NUM_OF_PTHREADS 4
+#define CN_THRESHOLD 1
+
 struct vertex;
 struct edge;
 
 //typedef boost::adjacency_matrix<boost::undirectedS, vertex, edge> Graph;
 typedef boost::adjacency_list<boost::listS, boost::vecS, boost::undirectedS, vertex, edge > Graph;
 std::pair<int,int> graph_size;
+int numof_noedge_vertices;
 
 template <typename G>
 struct graph_traits {
@@ -68,9 +68,8 @@ struct __attribute__ ((packed)) hint {
 struct vertex   {
 public:
     bool assigned = false;
-    int index = 0;
-    int related_node_top_index = 0;
-    double clustering_coefficient;
+    bool noedge = false;
+    double clustering_coefficient = 0 ;
     std::vector< std::pair<int,vertex_desc> > relatedNodes;
 };
 
