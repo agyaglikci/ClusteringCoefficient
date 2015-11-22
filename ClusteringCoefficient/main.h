@@ -18,6 +18,7 @@
 #include <list>
 #include <xmmintrin.h>
 #include "gtest/gtest.h"
+#include <atomic>
 
 
 #include <boost/functional/hash.hpp>
@@ -64,14 +65,11 @@ typedef graph_traits<Graph>::out_edge_iterator  out_edge_iter;
 typedef graph_traits<Graph>::edge_descriptor    edge_desc;
 typedef graph_traits<Graph>::edge_iterator      edge_iter;
 
-struct __attribute__ ((packed)) hint {
-    int weight = 0;
-    vertex_desc v;
-    void * pointer;
-} ;
 
 struct vertex   {
 public:
+    pthread_mutex_t wrback_mutex = PTHREAD_MUTEX_INITIALIZER;
+    bool paired;
     bool assigned = false;
     bool noedge = false;
     double clustering_coefficient = 0 ;
@@ -100,7 +98,8 @@ class cn_thread_args {
 public:
     int thread_id;
     int cn_threshold;
-    std::vector<std::pair<vertex_desc, vertex_desc> > * vertex_pairs_ptr ;
+    vertex_iter source_vertex;
+    //std::vector<std::pair<vertex_desc, vertex_desc> > * vertex_pairs_ptr ;
 };
 
 
