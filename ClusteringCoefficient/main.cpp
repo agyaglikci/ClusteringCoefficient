@@ -21,37 +21,69 @@ using namespace std;
 pthread_mutex_t cout_mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t wrback_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-
-
-Graph my_graph(edgefile_graph_size(TIMESTAMP));
+Graph my_graph;
 
 int main(int argc, char* argv[]) {
-    int ts = TIMESTAMP;
-    create_graph(TIMESTAMP);
-    //common_neighbors_master_thread(graph_size.second);
-    clustering_coefficient_master_thread(graph_size.first - numof_noedge_vertices);
+    my_graph = Graph(edgefile_graph_size(START_TIMESTAMP,DATA_SIZE));
     
-    ts++;
-    create_graph(ts);
-    clustering_coefficient_master_thread(graph_size.first - numof_noedge_vertices);
-     
-    ts++;
-    create_graph(ts);
-    clustering_coefficient_master_thread(graph_size.first - numof_noedge_vertices);
+    for (int ts = START_TIMESTAMP; ts <= STOP_TIMESTAMP; ts++) {
+        create_graph(START_TIMESTAMP,DATA_SIZE);
+        if (ts == START_TIMESTAMP)
+            common_neighbors_master_thread(graph_size.second,CN_THRESHOLD);
+        clustering_coefficient_master_thread(graph_size.first - numof_noedge_vertices, ts);
+    }
     
-    // */
+    //cout << "NUM_OF_THREADS:" << NUM_OF_PTHREADS << endl;
+    //cout << "DATASET_SIZE:" << DATA_SIZE << endl;
+    //cout << "START_TIME_STAMP:" << START_TIMESTAMP << endl;
+    //cout << "STOP_TIME_STAMP:" << STOP_TIMESTAMP << endl;
+    log_resource_stats("CNMASTER ",cn_master_stats);
+    for(int i = 0 ; i < NUM_OF_PTHREADS ; i++){
+        ostringstream title(""); title << "CNSLAVE." << i;
+        log_resource_stats(title.str() ,cn_slave_stats[i]);
+    }
+    for (int i = START_TIMESTAMP ; i <= STOP_TIMESTAMP; i++) {
+        ostringstream title(""); title << "CCMASTER" << i;
+        log_resource_stats(title.str(),cc_master_stats[i]);
+        for(int j = 0 ; j < NUM_OF_PTHREADS ; j++){
+            ostringstream title(""); title << "CCSLAVE" << i << "." << j;
+            log_resource_stats(title.str() ,cc_slave_stats[i][j]);
+        }
+    }
+    
     return 0;
 }
 
+void log_resource_stats( string title, pair<rusage,rusage> stats){
+    
+    long UT_SEC = (stats.second.ru_utime.tv_sec - stats.first.ru_utime.tv_sec);
+    long UT_USEC = (stats.second.ru_utime.tv_usec - stats.first.ru_utime.tv_usec);
+    cout << title << ":";
+    if (UT_USEC >= 0)
+        cout << UT_SEC <<"."<< UT_USEC;
+    else
+        cout << UT_SEC - 1 <<"."<< 1000000 + UT_USEC; // */
+    
+    long ST_SEC = (stats.second.ru_stime.tv_sec - stats.first.ru_stime.tv_sec);
+    long ST_USEC = (stats.second.ru_stime.tv_usec - stats.first.ru_stime.tv_usec);
+    cout << " , ";
+    if (ST_USEC >= 0)
+        cout << ST_SEC <<"."<< ST_USEC;
+    else
+        cout << ST_SEC - 1 <<"."<< 1000000 + ST_USEC; // */
+
+    cout << endl;
+}
 
 //============================================================================
 // Functions About Common Neighbours PreProcessing
 
 void * common_neighbors_slave_thread(void *arg){
-    
     cn_thread_args * args = (cn_thread_args *) arg;
+    int thread_id = args->thread_id;
+    int cn_threshold = args->cn_threshold;
+    getrusage(RUSAGE_SELF,&(cn_slave_stats[thread_id].first));
     vector<pair<vertex_desc, vertex_desc> > vi = *(args->vertex_pairs_ptr);
-    
     vector< pair<vertex_desc, vertex_desc> > vertex_pairs = *(args->vertex_pairs_ptr) ;
     //pthread_mutex_lock(&cout_mutex);
     //cout << args->thread_id << ": started with the following pairs";
@@ -68,7 +100,7 @@ void * common_neighbors_slave_thread(void *arg){
             if (boost::edge(v2, *ai, my_graph).second)
                 num_of_common_neighbors ++;
     
-        if (num_of_common_neighbors > CN_THRESHOLD){
+        if (num_of_common_neighbors > cn_threshold){
             pair<int, vertex_desc> v1rel, v2rel;
             v1rel.first=num_of_common_neighbors;
             v2rel.first=num_of_common_neighbors;
@@ -79,16 +111,21 @@ void * common_neighbors_slave_thread(void *arg){
             my_graph[v2].relatedNodes.push_back(v2rel);
             push_heap(my_graph[v1].relatedNodes.begin(),my_graph[v1].relatedNodes.end());
             push_heap(my_graph[v2].relatedNodes.begin(),my_graph[v2].relatedNodes.end());
+            numof_link_predictions[num_of_common_neighbors] ++;
+            if (num_of_common_neighbors > max_link_predictions)
+                max_link_predictions = num_of_common_neighbors;
             pthread_mutex_unlock(&wrback_mutex);
         }
     }
+    getrusage(RUSAGE_SELF,&(cn_slave_stats[thread_id].second));
     //cout << endl;
     //pthread_mutex_unlock(&cout_mutex);
     return NULL;
 }
 
 
-void common_neighbors_master_thread(int number_of_edges){
+void common_neighbors_master_thread(int number_of_edges, int cn_threshold){
+    getrusage(RUSAGE_SELF,&(cn_master_stats.first));
     pthread_t threads[NUM_OF_PTHREADS];
     cn_thread_args *th_args = (cn_thread_args*) malloc((NUM_OF_PTHREADS) * sizeof(cn_thread_args));
 //    int num_of_pairs = (graph_size.first * (graph_size.first - 1) / 2 ) - graph_size.second; //Number of non-neighbor pairs
@@ -112,7 +149,8 @@ void common_neighbors_master_thread(int number_of_edges){
         }
         
         source ++;
-        target = source + 1;
+        target = source;
+        target ++;
     }
     
     unsigned long chunk_size = all_vertex_pairs.size() / NUM_OF_PTHREADS + 1;
@@ -122,15 +160,23 @@ void common_neighbors_master_thread(int number_of_edges){
             vertex_pairs[i].push_back(all_vertex_pairs.back());
             all_vertex_pairs.pop_back();
         }
-        th_args[i].thread_id = i+1;
+        th_args[i].thread_id = i;
+        th_args[i].cn_threshold = cn_threshold;
         th_args[i].vertex_pairs_ptr = &(vertex_pairs[i]);
         pthread_create(&threads[i], NULL, common_neighbors_slave_thread, (void*) &th_args[i]);
     }
-    
+    getrusage(RUSAGE_SELF,&(cn_master_stats.second));
     for(int j = 0; j < NUM_OF_PTHREADS; j++){
         pthread_join(threads[j], NULL);
     }
     free(th_args);
+    
+    //cout << "cn_threshold = " << cn_threshold << " # of link predictions = " << endl;
+    //for (int i = 0 ; i < 57 ; i++) {
+    //    cout << numof_link_predictions[i] << " ";
+    //}
+    //cout << endl << " " << endl;
+    //cout << "max link prediction = " << max_link_predictions << endl;
     
     //cout << "Common Neighbors calculation finished for each vertex pair" << endl;
     /* Log results
@@ -151,7 +197,9 @@ void common_neighbors_master_thread(int number_of_edges){
 // Functions About Clustering Coefficient Process
 void * clustering_coefficient_slave_thread(void *arg){
     cc_thread_args * args = (cc_thread_args *) arg;
-    int id = args->thread_id;
+    int thread_id = args->thread_id;
+    int iter = args->iter;
+    getrusage(RUSAGE_SELF,&(cc_slave_stats[iter][thread_id].first));
     vector<vertex_desc> vertices = *(args->vertices_pointer);
     
     while (!vertices.empty()) {
@@ -159,11 +207,11 @@ void * clustering_coefficient_slave_thread(void *arg){
         vertices.pop_back();
         out_edge_iter oei, oei_end;
         adjac_iter ai, ai_end;
-        hint_access(vd,id);
+        hint_access(vd);
         int num_of_neighbors = 0, num_of_triangles = 0;
         
         for ( tie(ai,ai_end) = adjacent_vertices(vd,my_graph) ; ai != ai_end ; ++ai ) {
-            hint_access(*ai,id);
+            hint_access(*ai);
             num_of_neighbors++;
             adjac_iter ai2, ai2_end;
             
@@ -174,11 +222,13 @@ void * clustering_coefficient_slave_thread(void *arg){
         }
         my_graph[vd].clustering_coefficient = (num_of_neighbors > 1)? ((double)num_of_triangles) / ((double)(num_of_neighbors * (num_of_neighbors - 1))) : 0.0;
     }
+    
+    getrusage(RUSAGE_SELF,&(cc_slave_stats[iter][thread_id].second));
     return NULL;
 }
 
-
-void clustering_coefficient_master_thread(int number_of_vertices){
+void clustering_coefficient_master_thread(int number_of_vertices, int iter){
+    getrusage(RUSAGE_SELF,&(cc_master_stats[iter].first));
     std::pair<vertex_iter, vertex_iter> vp = vertices(my_graph);
     vertex_iter vi = vp.first;
     
@@ -222,19 +272,21 @@ void clustering_coefficient_master_thread(int number_of_vertices){
                 vi++;
             }
         }
-        th_args[i].thread_id = i+1;
+        th_args[i].thread_id = i;
         th_args[i].vertices_pointer =  &(verticesArr[i]);
+        th_args[i].iter = iter;
     }
-    
+
     for(int i = 0; i < NUM_OF_PTHREADS; i++){
         pthread_create(&threads[i], NULL, clustering_coefficient_slave_thread, (void*) &th_args[i]);
     }
+    getrusage(RUSAGE_SELF,&(cc_master_stats[iter].second));
     for(int i = 0; i < NUM_OF_PTHREADS; i++){
         pthread_join(threads[i], NULL);
     }
     free(th_args);
     
-    // Log results
+    /* Log results
     pair<vertex_iter, vertex_iter> viter = vertices(my_graph);
     for (vertex_iter i = viter.first; i != viter.second; i++) {
         if (my_graph[*i].clustering_coefficient > 0.1)
@@ -247,12 +299,13 @@ void clustering_coefficient_master_thread(int number_of_vertices){
 
 //============================================================================
 // File Reading and Graph Creating Functions
-int edgefile_graph_size(short timestamp){
-    string file_prefix = FILE_PREFIX;
-    string extension = FILE_EXTENSION;
-    ifstream file(DIRECTORY+file_prefix + to_string(timestamp) + extension);
+int edgefile_graph_size(int timestamp, int data_size){
+    
+    ostringstream full_path("");
+    full_path << DIRECTORY << "enron-" << timestamp << "-" << data_size << ".txt";
+    ifstream file(full_path.str());
     //pthread_mutex_lock(&cout_mutex);
-    //cout << "File: " << DIRECTORY <<  file_prefix <<  to_string(timestamp) <<  extension << endl;
+    //cout << "File: " << full_path.str() << endl;
     //pthread_mutex_unlock(&cout_mutex);
     short max_id = 0;
     if (file){
@@ -279,10 +332,12 @@ int edgefile_graph_size(short timestamp){
     return max_id;
 }
 
-int create_graph(short timestamp){
+int create_graph(int timestamp, int data_size){
     string file_prefix = FILE_PREFIX;
-    string extension = FILE_EXTENSION;
-    ifstream file(DIRECTORY+file_prefix + to_string(timestamp) + extension);
+    ostringstream full_path("");
+    full_path << DIRECTORY << "enron-" << timestamp << "-" << data_size << ".txt";
+    ifstream file(full_path.str());
+    
     int num_of_edges = 0;
     if (file){
         for (string line; getline(file, line); ) {
@@ -316,21 +371,25 @@ int create_graph(short timestamp){
         pthread_mutex_unlock(&cout_mutex);
     }
     
-    //pthread_mutex_lock(&cout_mutex);
+    /*pthread_mutex_lock(&cout_mutex);
     cout << "# of edges :" << num_of_edges  << endl;
     cout << "# of vertices :" << graph_size.first  << endl;
     cout << "# of disconnected vertices :" << numof_noedge_vertices  << endl;
     cout << "# of vertices in calculation :" << graph_size.first -numof_noedge_vertices << endl;
-    //pthread_mutex_unlock(&cout_mutex);
+    cout << num_of_edges;
+    cout << " " << graph_size.first  ;
+    cout << " " << numof_noedge_vertices << endl << " " << endl;
+    //cout << " " << graph_size.first -numof_noedge_vertices << endl;
+    //pthread_mutex_unlock(&cout_mutex); // */
     graph_size.second = num_of_edges;
     
     return num_of_edges;
 }
 
 
-void hint_access(vertex_desc vd , int thread_id = -1) {
+void hint_access(vertex_desc vd) {
     while ( !my_graph[vd].relatedNodes.empty() ){
-        _mm_prefetch((char *) &my_graph.out_edge_list( my_graph[vd].relatedNodes.front().second) , 0);
+        _mm_prefetch((char *) &my_graph.out_edge_list( my_graph[vd].relatedNodes.front().second) , _MM_HINT_T1);
         pop_heap(my_graph[vd].relatedNodes.begin(),my_graph[vd].relatedNodes.end());
         my_graph[vd].relatedNodes.pop_back();
     }
